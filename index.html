@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLADET - Dirección de Planificación y Desarrollo Territorial | USACH</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1d1d1f; background: #fff; -webkit-font-smoothing: antialiased; }
+  :root {
+    --primary: #EA7600;
+    --primary-dark: #c96500;
+    --primary-light: #fef3e6;
+    --gray-900: #1d1d1f;
+    --gray-800: #2d2d2f;
+    --gray-700: #394049;
+    --gray-600: #515154;
+    --gray-500: #6e6e73;
+    --gray-400: #86868b;
+    --gray-300: #aeaeb2;
+    --gray-200: #d2d2d7;
+    --gray-100: #e8e8ed;
+    --gray-50: #f5f5f7;
+    --purple: #8C4799;
+    --blue: #498BCA;
+    --yellow: #EAAA00;
+    --red: #C8102E;
+    --green: #00A499;
+  }
+
+  /* ============ APPLE-STYLE ANIMATIONS ============ */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-in-delay-1 { transition-delay: 0.1s; }
+  .fade-in-delay-2 { transition-delay: 0.2s; }
+  .fade-in-delay-3 { transition-delay: 0.3s; }
+  .fade-in-delay-4 { transition-delay: 0.4s; }
+  .scale-in {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .scale-in.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Slide from left */
+  .slide-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .slide-left.visible { opacity: 1; transform: translateX(0); }
+
+  /* Slide from right */
+  .slide-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .slide-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* Rotate in */
+  .rotate-in {
+    opacity: 0;
+    transform: rotate(-5deg) scale(0.9);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .rotate-in.visible { opacity: 1; transform: rotate(0) scale(1); }
+
+  /* Blur in */
+  .blur-in {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, filter 0.8s ease, transform 0.8s ease;
+  }
+  .blur-in.visible { opacity: 1; filter: blur(0); transform: translateY(0); }
+
+  /* Floating animation for decorative elements */
+  @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+  @keyframes floatSlow { 0%,100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-12px) rotate(3deg); } }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+  @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  @keyframes breathe { 0%,100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
+  @keyframes slideInNumber { 0% { opacity:0; transform: translateY(30px); } 100% { opacity:1; transform: translateY(0); } }
+
+  /* Hero floating particles */
+  .hero-particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+  .hero-particle:nth-child(1) { width:6px;height:6px;background:rgba(234,118,0,0.3);top:20%;left:10%;animation-duration:7s; }
+  .hero-particle:nth-child(2) { width:4px;height:4px;background:rgba(73,139,202,0.25);top:60%;left:85%;animation-duration:5s;animation-delay:1s; }
+  .hero-particle:nth-child(3) { width:8px;height:8px;background:rgba(140,71,153,0.2);top:30%;left:70%;animation-duration:8s;animation-delay:2s; }
+  .hero-particle:nth-child(4) { width:5px;height:5px;background:rgba(234,170,0,0.3);top:75%;left:25%;animation-duration:6s;animation-delay:0.5s; }
+  .hero-particle:nth-child(5) { width:3px;height:3px;background:rgba(0,164,153,0.25);top:45%;left:50%;animation-duration:9s;animation-delay:3s; }
+  .hero-particle:nth-child(6) { width:7px;height:7px;background:rgba(234,118,0,0.15);top:85%;left:65%;animation-duration:7.5s;animation-delay:1.5s; }
+
+  /* Animated gradient line */
+  .gradient-line {
+    height: 4px;
+    background: var(--green);
+    border-radius: 2px;
+  }
+
+  /* Tilt hover for cards */
+  .tilt-hover { transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1); }
+  .tilt-hover:hover { transform: perspective(800px) rotateY(-2deg) rotateX(2deg) translateY(-6px); }
+
+  /* Glow effect */
+  .glow-orange { box-shadow: 0 0 40px rgba(234,118,0,0.15); }
+  .glow-blue { box-shadow: 0 0 40px rgba(73,139,202,0.15); }
+  .glow-green { box-shadow: 0 0 40px rgba(0,164,153,0.12); }
+
+  /* Hero image overlay */
+  .hero-bg-image {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center 40%;
+    opacity: 0.25;
+    filter: grayscale(20%) contrast(1.1);
+    transition: opacity 1.5s ease;
+    z-index: 0;
+  }
+
+  /* Animated mesh grid in hero */
+  .hero-mesh {
+    position: absolute; inset: 0; z-index: 0; overflow: hidden; opacity: 0.06;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: meshMove 20s linear infinite;
+  }
+  @keyframes meshMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(60px, 60px); }
+  }
+
+  /* Counter animation class */
+  .counter-animated { display: inline-block; }
+
+  /* ============ HEADER ============ */
+  .header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: saturate(200%) blur(28px);
+    -webkit-backdrop-filter: saturate(200%) blur(28px);
+    border-bottom: 3px solid var(--green);
+    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  }
+  .header.scrolled {
+    background: white;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    border-bottom: 3px solid var(--green);
+  }
+  .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo-area { display: flex; align-items: center; gap: 14px; }
+  .logo-box {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--primary), #f58210);
+    border: none;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 900; font-size: 10px; letter-spacing: -0.2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 12px rgba(234,118,0,0.3);
+  }
+  .logo-box:hover { transform: scale(1.08); box-shadow: 0 4px 20px rgba(234,118,0,0.45); }
+  .logo-text-sub { font-size: 10px; color: var(--primary); letter-spacing: 1.2px; text-transform: uppercase; font-weight: 700; }
+  .logo-text-main { font-size: 12px; font-weight: 800; color: var(--gray-900); line-height: 1.3; letter-spacing: 0.5px; }
+  .nav { display: flex; gap: 2px; align-items: center; }
+  .nav a {
+    padding: 8px 16px; font-size: 13px; color: var(--gray-500);
+    text-decoration: none; border-radius: 100px; font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    position: relative;
+  }
+  .nav a:hover {
+    background: rgba(0,164,153,0.08);
+    color: var(--green);
+    transform: translateY(-1px);
+  }
+  .nav a::after {
+    content: '';
+    position: absolute; bottom: 2px; left: 50%; width: 0; height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--green));
+    border-radius: 1px;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+  .nav a:hover::after { width: 24px; }
+  .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; color: var(--gray-600); padding: 8px; font-size: 22px; }
+  .mobile-menu {
+    display: none;
+    background: white;
+    backdrop-filter: blur(28px);
+    border-top: 1px solid var(--gray-100);
+    padding: 20px 28px;
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a {
+    display: block; padding: 16px 0; font-size: 16px;
+    color: var(--gray-600); text-decoration: none;
+    border-bottom: 1px solid var(--gray-100); font-weight: 500;
+    transition: all 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--green); padding-left: 12px; }
+
+  /* ============ HERO ============ */
+  .hero {
+    margin-top: 68px;
+    background: var(--green);
+    min-height: 90vh; display: flex; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(0,0,0,0.08) 0%, transparent 50%);
+    z-index: 1;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,164,153,0.1) 0%, rgba(0,164,153,0.4) 40%, rgba(0,164,153,0.7) 100%);
+    z-index: 1;
+  }
+  .hero-content { max-width: 1200px; margin: 0 auto; padding: 100px 24px; position: relative; z-index: 2; }
+  .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 0.5px solid rgba(255,255,255,0.25); padding: 6px 16px; border-radius: 100px; font-size: 11px; color: rgba(255,255,255,0.9); font-weight: 600; margin-bottom: 32px; letter-spacing: 1.5px; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 900; color: white; line-height: 1.05; max-width: 800px; margin-bottom: 24px; letter-spacing: -2px; }
+  .hero h1 span { background: linear-gradient(135deg, #fff, var(--yellow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-desc { font-size: clamp(17px, 2vw, 21px); color: rgba(255,255,255,0.85); max-width: 560px; line-height: 1.6; margin-bottom: 48px; font-weight: 400; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; padding: 16px 32px; border-radius: 100px; font-weight: 600; font-size: 15px; text-decoration: none; transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); }
+  .btn-primary:hover { transform: scale(1.04); background: #f58210; }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); color: white; padding: 16px 32px; border-radius: 100px; font-weight: 600; font-size: 15px; text-decoration: none; border: 0.5px solid rgba(255,255,255,0.3); transition: all 0.3s; }
+  .btn-secondary:hover { background: rgba(255,255,255,0.25); color: white; }
+
+  /* ============ STATS ============ */
+  .stats { background: white; border-bottom: 0.5px solid var(--gray-200); }
+  .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stat-item { padding: 40px 24px; text-align: center; position: relative; }
+  .stat-item::after { content: ''; position: absolute; right: 0; top: 25%; height: 50%; width: 0.5px; background: var(--gray-200); }
+  .stat-item:last-child::after { display: none; }
+  .stat-number { font-size: 48px; font-weight: 900; line-height: 1; letter-spacing: -2px; background: linear-gradient(135deg, var(--green), #00857a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .stat-number.alt { background: linear-gradient(135deg, var(--primary), var(--yellow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .stat-label { font-size: 11px; color: var(--gray-600); font-weight: 600; margin-top: 12px; text-transform: uppercase; letter-spacing: 1.5px; }
+
+  /* ============ SECTION COMMON ============ */
+  .section { padding: 120px 24px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-tag { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+  .section-tag.orange { color: var(--primary); }
+  .section-tag.blue { color: var(--blue); }
+  .section-tag.purple { color: var(--purple); }
+  .section-tag.yellow { color: var(--yellow); }
+  .section-tag.gray { color: var(--gray-400); }
+  .section-tag.green { color: var(--green); }
+  .section-title { font-size: clamp(32px, 4vw, 52px); font-weight: 900; color: var(--gray-900); line-height: 1.1; letter-spacing: -1.5px; }
+  .section-title span { color: var(--green); }
+  .section-subtitle { font-size: 18px; color: var(--gray-500); line-height: 1.6; max-width: 640px; margin-top: 16px; }
+  .section-center { text-align: center; margin-bottom: 72px; }
+  .section-center .section-subtitle { margin: 16px auto 0; }
+
+  /* ============ QUIENES SOMOS ============ */
+  .qs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .qs-text p { font-size: 17px; color: var(--gray-500); line-height: 1.8; margin-bottom: 20px; }
+  .qs-callout { background: var(--gray-50); padding: 24px; border-radius: 16px; border-left: 3px solid var(--green); }
+  .qs-callout p { font-size: 15px; color: var(--gray-600); line-height: 1.6; margin: 0; }
+  .qs-visual { background: var(--gray-50); border-radius: 24px; padding: 48px; }
+  .qs-map-box { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, rgba(234,118,0,0.06), rgba(73,139,202,0.06)); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+
+  /* ============ FUNCIONES (Cards) ============ */
+  .func-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .func-card { background: var(--gray-50); border-radius: 20px; padding: 36px; transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1); cursor: default; border: 0.5px solid transparent; }
+  .func-card:hover { background: white; border-color: var(--gray-200); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+  .func-icon { width: 52px; height: 52px; border-radius: 14px; background: rgba(0,164,153,0.08); display: flex; align-items: center; justify-content: center; color: var(--green); margin-bottom: 20px; transition: all 0.4s; }
+  .func-card:hover .func-icon { background: var(--green); color: white; transform: scale(1.05); }
+  .func-card h3 { font-size: 17px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+  .func-card p { font-size: 14px; color: var(--gray-500); line-height: 1.7; }
+
+  /* ============ PATRIMONIO (Apple-style full-width sections) ============ */
+  .patrimonio-section { background: white; color: var(--gray-900); padding: 120px 24px; overflow: hidden; }
+  .patrimonio-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .patrimonio-text .section-tag { color: var(--yellow); }
+  .patrimonio-text h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 900; color: var(--gray-900); line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 24px; }
+  .patrimonio-text h2 span { background: linear-gradient(135deg, var(--green), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .patrimonio-text p { font-size: 17px; color: var(--gray-500); line-height: 1.8; margin-bottom: 16px; }
+  .patrimonio-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+  .patrimonio-stat { background: var(--gray-50); border: 0.5px solid var(--gray-200); border-radius: 16px; padding: 24px; }
+  .patrimonio-stat .num { font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 4px; }
+  .patrimonio-stat .num.orange { color: var(--primary); }
+  .patrimonio-stat .num.blue { color: var(--blue); }
+  .patrimonio-stat .num.purple { color: var(--purple); }
+  .patrimonio-stat .num.yellow { color: var(--yellow); }
+  .patrimonio-stat .label { font-size: 12px; color: var(--gray-600); font-weight: 500; line-height: 1.4; }
+  .patrimonio-visual { display: flex; flex-direction: column; gap: 20px; }
+  .patrimonio-card { background: var(--gray-50); border: 0.5px solid var(--gray-200); border-radius: 20px; padding: 32px; transition: all 0.3s; }
+  .patrimonio-card:hover { background: white; border-color: var(--green); }
+  .patrimonio-card h4 { font-size: 18px; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+  .patrimonio-card p { font-size: 14px; color: var(--gray-400); line-height: 1.6; }
+
+  /* ============ CATASTRO ============ */
+  .catastro-section { background: var(--gray-50); padding: 120px 24px; position: relative; }
+  .catastro-inner { max-width: 1200px; margin: 0 auto; }
+  .catastro-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 64px; }
+  .catastro-card { background: white; border-radius: 20px; padding: 40px; border: 0.5px solid var(--gray-200); transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1); }
+  .catastro-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.06); border-color: var(--primary); }
+  .catastro-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+  .catastro-card h3 { font-size: 22px; font-weight: 800; color: var(--gray-900); margin-bottom: 12px; letter-spacing: -0.5px; }
+  .catastro-card .big-num { font-size: 40px; font-weight: 900; letter-spacing: -2px; margin-bottom: 12px; }
+  .catastro-card p { font-size: 15px; color: var(--gray-500); line-height: 1.7; }
+
+  /* ============ SIG-PLADET (Coming soon style) ============ */
+  .sig-section { background: linear-gradient(135deg, #f0faf9 0%, #e8f6f5 50%, #f5f5f7 100%); padding: 120px 24px; position: relative; overflow: hidden; }
+  .sig-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(0,164,153,0.08) 0%, transparent 60%);
+  }
+  .sig-inner { max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+  .sig-badge { display: inline-block; background: rgba(0,164,153,0.12); border: 0.5px solid rgba(0,164,153,0.3); padding: 6px 18px; border-radius: 100px; font-size: 11px; color: var(--green); font-weight: 700; margin-bottom: 32px; letter-spacing: 2px; text-transform: uppercase; }
+  .sig-inner h2 { font-size: clamp(36px, 5vw, 56px); font-weight: 900; color: var(--gray-900); line-height: 1.1; letter-spacing: -2px; margin-bottom: 24px; }
+  .sig-inner h2 span { background: linear-gradient(135deg, var(--green), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .sig-inner p { font-size: 18px; color: var(--gray-500); line-height: 1.7; max-width: 600px; margin: 0 auto 40px; }
+  .sig-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+  .sig-feature { background: white; border: 0.5px solid var(--gray-200); border-radius: 16px; padding: 28px; text-align: center; transition: all 0.3s; }
+  .sig-feature:hover { background: white; border-color: var(--green); box-shadow: 0 10px 40px rgba(0,164,153,0.1); }
+  .sig-feature-icon { width: 48px; height: 48px; border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
+  .sig-feature h4 { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+  .sig-feature p { font-size: 13px; color: var(--gray-400); line-height: 1.5; }
+
+  /* ============ PROYECTOS ============ */
+  .proy-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .proy-card { border-radius: 20px; overflow: hidden; border: 0.5px solid var(--gray-200); transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1); background: white; }
+  .proy-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.06); }
+  .proy-bar { height: 4px; }
+  .proy-body { padding: 32px; }
+  .proy-badge { display: inline-block; padding: 4px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; margin-bottom: 16px; }
+  .proy-card h3 { font-size: 19px; font-weight: 800; color: var(--gray-900); margin-bottom: 12px; line-height: 1.3; letter-spacing: -0.3px; }
+  .proy-card p { font-size: 15px; color: var(--gray-500); line-height: 1.7; }
+
+  /* ============ EQUIPO ============ */
+  .equipo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .equipo-card { background: var(--gray-50); border-radius: 20px; overflow: hidden; transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1); border: 0.5px solid transparent; }
+  .equipo-card:hover { background: white; border-color: var(--gray-200); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.06); }
+  .equipo-banner-sm { height: 120px; display: flex; align-items: center; justify-content: center; position: relative; }
+  .equipo-avatar-sm { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.4); position: absolute; bottom: -28px; }
+  .equipo-avatar-sm svg { width: 32px; height: 32px; color: white; }
+  .equipo-info-sm { padding: 40px 20px 24px; text-align: center; }
+  .equipo-info-sm h3 { font-size: 16px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+  .equipo-info-sm .role { font-size: 12px; color: var(--gray-500); font-weight: 500; line-height: 1.4; }
+
+  /* ============ CONTACTO ============ */
+  .contacto-box { background: var(--green); border-radius: 28px; padding: 72px 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; position: relative; overflow: hidden; }
+  .contacto-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  }
+  .contacto-box h2 { font-size: 36px; font-weight: 900; color: white; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .contacto-box > div { position: relative; z-index: 1; }
+  .contacto-box .desc { font-size: 17px; color: rgba(255,255,255,0.85); line-height: 1.7; }
+  .contact-item { display: flex; gap: 16px; align-items: flex-start; background: rgba(255,255,255,0.12); border: 0.5px solid rgba(255,255,255,0.2); padding: 20px; border-radius: 14px; margin-bottom: 16px; transition: all 0.3s; }
+  .contact-item:hover { background: rgba(255,255,255,0.2); }
+  .contact-item:last-child { margin-bottom: 0; }
+  .contact-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0; }
+  .contact-label { font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .contact-value { font-size: 14px; color: white; font-weight: 500; line-height: 1.5; }
+
+  /* ============ NOTICIAS ============ */
+  .noticias-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .noticia-card { background: white; border-radius: 20px; overflow: hidden; border: 0.5px solid var(--gray-200); transition: all 0.4s cubic-bezier(0.25,0.1,0.25,1); }
+  .noticia-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.06); }
+
+  /* ============ FOOTER ============ */
+  .footer { background: var(--green); padding: 32px 24px; border-top: 0.5px solid rgba(255,255,255,0.15); }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-title { font-size: 13px; font-weight: 600; color: white; margin-bottom: 2px; }
+  .footer-sub { font-size: 12px; color: rgba(255,255,255,0.7); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    .func-grid { grid-template-columns: repeat(2, 1fr); }
+    .equipo-grid { grid-template-columns: repeat(2, 1fr); }
+    .catastro-grid { grid-template-columns: 1fr; }
+    .sig-features { grid-template-columns: 1fr; }
+    .noticias-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .nav { display: none; }
+    .mobile-menu-btn { display: block; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-item::after { display: none; }
+    .qs-grid, .patrimonio-grid { grid-template-columns: 1fr; gap: 40px; }
+    .func-grid, .proy-grid { grid-template-columns: 1fr; }
+    .equipo-grid { grid-template-columns: repeat(2, 1fr); }
+    .contacto-box { grid-template-columns: 1fr; padding: 40px 28px; }
+    .section { padding: 80px 24px; }
+  }
+  @media (max-width: 480px) {
+    .equipo-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-box">USACH</div>
+      <div>
+        <div class="logo-text-sub">Prorrectoría</div>
+        <div class="logo-text-main">DIRECCIÓN DE PLANIFICACIÓN Y DESARROLLO TERRITORIAL</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#inicio">Inicio</a>
+      <a href="#quienes-somos">Quiénes Somos</a>
+      <a href="#noticias">Noticias</a>
+      <a href="#requerimientos">Requerimientos</a>
+      <a href="#funciones">Funciones</a>
+      <a href="#patrimonio">Patrimonio</a>
+      <a href="#sig">SIG-PLADET</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">&#9776;</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#inicio" onclick="closeMenu()">Inicio</a>
+    <a href="#quienes-somos" onclick="closeMenu()">Quiénes Somos</a>
+    <a href="#noticias" onclick="closeMenu()">Noticias</a>
+    <a href="#requerimientos" onclick="closeMenu()">Requerimientos</a>
+    <a href="#funciones" onclick="closeMenu()">Funciones</a>
+    <a href="#patrimonio" onclick="closeMenu()">Patrimonio</a>
+    <a href="#sig" onclick="closeMenu()">SIG-PLADET</a>
+    <a href="#equipo" onclick="closeMenu()">Equipo</a>
+    <a href="#contacto" onclick="closeMenu()">Contacto</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="inicio">
+  <!-- Background image -->
+  <div class="hero-bg-image" id="heroBg" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Antigua_Universidad_T%C3%A9cnica_del_Estado_%28UTE%29%2C_hoy_Universidad_de_Santiago_de_Chile.jpg/1280px-Antigua_Universidad_T%C3%A9cnica_del_Estado_%28UTE%29%2C_hoy_Universidad_de_Santiago_de_Chile.jpg')"></div>
+  <!-- Animated mesh grid -->
+  <div class="hero-mesh"></div>
+  <!-- Floating particles -->
+  <div class="hero-particle"></div>
+  <div class="hero-particle"></div>
+  <div class="hero-particle"></div>
+  <div class="hero-particle"></div>
+  <div class="hero-particle"></div>
+  <div class="hero-particle"></div>
+  <div class="hero-content">
+    <div class="hero-badge fade-in" style="animation: breathe 4s ease-in-out infinite;">PRORRECTORÍA · UNIVERSIDAD DE SANTIAGO DE CHILE</div>
+    <h1 class="fade-in fade-in-delay-1">Dirección de Planificación y <span>Desarrollo Territorial</span></h1>
+    <p class="hero-desc fade-in fade-in-delay-2">Planificamos el crecimiento estratégico del campus universitario, gestionando el territorio, el patrimonio y la infraestructura al servicio de la comunidad USACH.</p>
+    <div class="hero-btns fade-in fade-in-delay-3">
+      <a href="#funciones" class="btn-primary">Conoce nuestras funciones →</a>
+      <a href="#contacto" class="btn-secondary">Contáctanos</a>
+    </div>
+  </div>
+</section>
+
+<!-- Animated gradient divider -->
+<div class="gradient-line"></div>
+
+<!-- Stats -->
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat-item fade-in"><div class="stat-number">222.000+</div><div class="stat-label">M² Construidos</div></div>
+    <div class="stat-item fade-in fade-in-delay-1"><div class="stat-number alt">40</div><div class="stat-label">Hectáreas Campus Central</div></div>
+    <div class="stat-item fade-in fade-in-delay-2"><div class="stat-number">35.000+</div><div class="stat-label">Personas en Campus</div></div>
+    <div class="stat-item fade-in fade-in-delay-3"><div class="stat-number alt">60+</div><div class="stat-label">Proyectos Procesados Anualmente</div></div>
+  </div>
+</section>
+
+<!-- Gradient divider -->
+<div class="gradient-line"></div>
+
+<!-- Quiénes Somos -->
+<section class="section" id="quienes-somos" style="background:white">
+  <div class="section-inner">
+    <div class="qs-grid">
+      <div class="qs-text slide-left">
+        <div class="section-tag orange">Quiénes Somos</div>
+        <h2 class="section-title" style="margin-bottom:24px">Dirección de Planificación y <span>Desarrollo Territorial</span></h2>
+        <p>Somos la unidad de la Prorrectoría de la Universidad de Santiago de Chile encargada de la planeación estratégica del uso eficiente del campus y de los espacios que son propiedad de la Universidad.</p>
+        <p>Velamos por el correcto funcionamiento de los proyectos que implican el desarrollo de la infraestructura, en coordinación con las unidades de gestión del campus, siendo contraparte especializada en las labores de desarrollo de grandes construcciones en apoyo directo a la autoridad superior.</p>
+        <div class="qs-callout" style="margin-top:8px">
+          <p>Dependemos directamente de la <strong>Prorrectoría</strong> de la Universidad de Santiago de Chile, bajo la dirección del <strong>Prorrector Juan Escrig Murúa</strong>.</p>
+        </div>
+      </div>
+      <div class="slide-right">
+        <div class="qs-visual" style="padding:0;overflow:hidden">
+          <img src="https://www.usach.cl/sites/default/files/inline-images/Administraci%C3%B3n-1440x1056.jpg" alt="Campus USACH - Vista aérea" style="width:100%;height:auto;border-radius:24px;display:block" loading="lazy">
+          <div style="padding:24px;text-align:center">
+            <div style="font-size:22px;font-weight:800;color:var(--gray-900);letter-spacing:-0.5px">Campus Central USACH</div>
+            <div style="font-size:14px;color:var(--gray-400);margin-top:4px">Estación Central, Santiago de Chile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Noticias Destacadas -->
+<section class="section" id="noticias" style="background:var(--gray-50)">
+  <div class="section-inner">
+    <div class="section-center fade-in">
+      <div class="section-tag green">Actualidad</div>
+      <h2 class="section-title">Noticias <span>Destacadas</span></h2>
+      <p class="section-subtitle">Avances, hitos y novedades de la gestión territorial y el desarrollo del campus universitario.</p>
+    </div>
+    <div class="noticias-grid">
+
+      <!-- Noticia 1 -->
+      <div class="noticia-card fade-in">
+        <div style="height:6px;background:linear-gradient(90deg,var(--green),var(--blue))"></div>
+        <div style="padding:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(0,164,153,0.1);display:flex;align-items:center;justify-content:center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <span style="font-size:11px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:1.2px">Inicio de Obras</span>
+          </div>
+          <h3 style="font-size:18px;font-weight:800;color:var(--gray-900);margin-bottom:10px;line-height:1.3;letter-spacing:-0.3px">Nuevo Edificio de Laboratorios Facultad de Ingeniería</h3>
+          <p style="font-size:14px;color:var(--gray-500);line-height:1.7;margin-bottom:16px">Inicio de obras del nuevo edificio que albergará laboratorios de última generación para las carreras de ingeniería del campus.</p>
+          <div style="font-size:12px;color:var(--gray-400);font-weight:500">Marzo 2026</div>
+        </div>
+      </div>
+
+      <!-- Noticia 2 -->
+      <div class="noticia-card fade-in fade-in-delay-1">
+        <div style="height:6px;background:linear-gradient(90deg,var(--primary),var(--yellow))"></div>
+        <div style="padding:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(234,118,0,0.1);display:flex;align-items:center;justify-content:center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <span style="font-size:11px;color:var(--primary);font-weight:700;text-transform:uppercase;letter-spacing:1.2px">Entrega de Obras</span>
+          </div>
+          <h3 style="font-size:18px;font-weight:800;color:var(--gray-900);margin-bottom:10px;line-height:1.3;letter-spacing:-0.3px">Remodelación Espacios Comunes Sector Norte</h3>
+          <p style="font-size:14px;color:var(--gray-500);line-height:1.7;margin-bottom:16px">Finalización exitosa del proyecto de mejoramiento de áreas comunes y circulaciones en el sector norte del campus central.</p>
+          <div style="font-size:12px;color:var(--gray-400);font-weight:500">Febrero 2026</div>
+        </div>
+      </div>
+
+      <!-- Noticia 3 -->
+      <div class="noticia-card fade-in fade-in-delay-2">
+        <div style="height:6px;background:linear-gradient(90deg,var(--blue),var(--purple))"></div>
+        <div style="padding:32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <div style="width:40px;height:40px;border-radius:10px;background:rgba(73,139,202,0.1);display:flex;align-items:center;justify-content:center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <span style="font-size:11px;color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:1.2px">Datos Territoriales</span>
+          </div>
+          <h3 style="font-size:18px;font-weight:800;color:var(--gray-900);margin-bottom:10px;line-height:1.3;letter-spacing:-0.3px">Actualización del Catastro Territorial 2026</h3>
+          <p style="font-size:14px;color:var(--gray-500);line-height:1.7;margin-bottom:16px">Se completó la actualización del levantamiento catastral del campus, incorporando nuevas edificaciones y modificaciones territoriales.</p>
+          <div style="font-size:12px;color:var(--gray-400);font-weight:500">Enero 2026</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Flujo de Requerimientos -->
+<section class="section" id="requerimientos" style="background:white">
+  <div class="section-inner">
+    <div class="section-center fade-in">
+      <div class="section-tag" style="color:var(--green)">Proceso</div>
+      <h2 style="font-size:clamp(32px,4vw,52px);font-weight:900;color:var(--gray-900);line-height:1.1;letter-spacing:-1.5px">¿Cómo Solicitar un <span style="background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Requerimiento?</span></h2>
+      <p style="font-size:18px;color:var(--gray-500);line-height:1.6;max-width:640px;margin:16px auto 0">Todo requerimiento de infraestructura se gestiona a través de un proceso institucional formal que garantiza la correcta asignación de recursos y seguimiento.</p>
+    </div>
+
+    <!-- Animated Flow Diagram -->
+    <div style="max-width:960px;margin:0 auto;position:relative">
+      <!-- Flow Steps -->
+      <div class="flow-container" style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:relative">
+
+        <!-- Step 1 -->
+        <div class="flow-step fade-in" style="flex:1;text-align:center">
+          <div class="flow-circle" style="width:80px;height:80px;border-radius:50%;background:rgba(234,118,0,0.12);border:2px solid var(--primary);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;position:relative;animation:pulse1 3s ease-in-out infinite">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <div style="position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:50%;background:var(--primary);color:white;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">1</div>
+          </div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--gray-900);margin-bottom:8px">Memorándum</h4>
+          <p style="font-size:13px;color:var(--gray-500);line-height:1.5">La unidad solicitante envía un memorándum dirigido al Prorrector con el requerimiento de infraestructura.</p>
+        </div>
+
+        <!-- Arrow 1 -->
+        <div class="flow-arrow fade-in fade-in-delay-1" style="display:flex;align-items:center;padding-top:32px;color:var(--gray-300);flex-shrink:0">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none"><path d="M0 12h32M24 4l8 8-8 8" stroke="var(--gray-300)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><animate attributeName="stroke-dashoffset" from="50" to="0" dur="1.5s" repeatCount="indefinite"/><animate attributeName="stroke-dasharray" values="0 50;50 0" dur="1.5s" repeatCount="indefinite"/></path></svg>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flow-step fade-in fade-in-delay-1" style="flex:1;text-align:center">
+          <div class="flow-circle" style="width:80px;height:80px;border-radius:50%;background:rgba(73,139,202,0.12);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;position:relative;animation:pulse2 3s ease-in-out 0.5s infinite">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div style="position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:50%;background:var(--blue);color:white;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">2</div>
+          </div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--gray-900);margin-bottom:8px">Aprobación y Recursos</h4>
+          <p style="font-size:13px;color:var(--gray-500);line-height:1.5">El Prorrector evalúa, aprueba el requerimiento, asigna los recursos necesarios y lo deriva a PLADET.</p>
+        </div>
+
+        <!-- Arrow 2 -->
+        <div class="flow-arrow fade-in fade-in-delay-2" style="display:flex;align-items:center;padding-top:32px;color:var(--gray-300);flex-shrink:0">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none"><path d="M0 12h32M24 4l8 8-8 8" stroke="var(--gray-300)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><animate attributeName="stroke-dashoffset" from="50" to="0" dur="1.5s" repeatCount="indefinite"/><animate attributeName="stroke-dasharray" values="0 50;50 0" dur="1.5s" repeatCount="indefinite"/></path></svg>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flow-step fade-in fade-in-delay-2" style="flex:1;text-align:center">
+          <div class="flow-circle" style="width:80px;height:80px;border-radius:50%;background:rgba(140,71,153,0.12);border:2px solid var(--purple);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;position:relative;animation:pulse3 3s ease-in-out 1s infinite">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <div style="position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:50%;background:var(--purple);color:white;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">3</div>
+          </div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--gray-900);margin-bottom:8px">Seguimiento</h4>
+          <p style="font-size:13px;color:var(--gray-500);line-height:1.5">A través de nuestro sistema de seguimiento de proyectos, se informa el avance en cada etapa del proceso.</p>
+        </div>
+
+        <!-- Arrow 3 -->
+        <div class="flow-arrow fade-in fade-in-delay-3" style="display:flex;align-items:center;padding-top:32px;color:var(--gray-300);flex-shrink:0">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none"><path d="M0 12h32M24 4l8 8-8 8" stroke="var(--gray-300)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><animate attributeName="stroke-dashoffset" from="50" to="0" dur="1.5s" repeatCount="indefinite"/><animate attributeName="stroke-dasharray" values="0 50;50 0" dur="1.5s" repeatCount="indefinite"/></path></svg>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="flow-step fade-in fade-in-delay-3" style="flex:1;text-align:center">
+          <div class="flow-circle" style="width:80px;height:80px;border-radius:50%;background:rgba(234,170,0,0.12);border:2px solid var(--yellow);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;position:relative;animation:pulse4 3s ease-in-out 1.5s infinite">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+            <div style="position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:50%;background:var(--yellow);color:white;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">4</div>
+          </div>
+          <h4 style="font-size:15px;font-weight:700;color:var(--gray-900);margin-bottom:8px">Ejecución</h4>
+          <p style="font-size:13px;color:var(--gray-500);line-height:1.5">El proyecto se ejecuta con supervisión técnica de PLADET hasta su finalización y entrega.</p>
+        </div>
+      </div>
+
+      <!-- Progress bar animated -->
+      <div style="margin-top:48px;position:relative;height:4px;background:var(--gray-200);border-radius:2px;overflow:hidden">
+        <div style="position:absolute;left:0;top:0;height:100%;width:100%;border-radius:2px;background:linear-gradient(90deg,var(--green),var(--primary),var(--blue),var(--purple));animation:progressFlow 4s ease-in-out infinite;transform-origin:left"></div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes pulse1 { 0%,100% { box-shadow: 0 0 0 0 rgba(234,118,0,0.3); } 50% { box-shadow: 0 0 0 12px rgba(234,118,0,0); } }
+    @keyframes pulse2 { 0%,100% { box-shadow: 0 0 0 0 rgba(73,139,202,0.3); } 50% { box-shadow: 0 0 0 12px rgba(73,139,202,0); } }
+    @keyframes pulse3 { 0%,100% { box-shadow: 0 0 0 0 rgba(140,71,153,0.3); } 50% { box-shadow: 0 0 0 12px rgba(140,71,153,0); } }
+    @keyframes pulse4 { 0%,100% { box-shadow: 0 0 0 0 rgba(234,170,0,0.3); } 50% { box-shadow: 0 0 0 12px rgba(234,170,0,0); } }
+    @keyframes progressFlow { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+    @media (max-width: 768px) {
+      .flow-container { flex-direction: column !important; align-items: center !important; }
+      .flow-arrow { transform: rotate(90deg); padding-top: 0 !important; margin: 8px 0; }
+      .flow-step { max-width: 280px; }
+    }
+  </style>
+</section>
+
+
+<!-- Funciones -->
+<section class="section" id="funciones" style="background:var(--gray-50)">
+  <div class="section-inner">
+    <div class="section-center fade-in">
+      <div class="section-tag orange">Nuestras Funciones</div>
+      <h2 class="section-title">Áreas de <span>Gestión</span></h2>
+      <p class="section-subtitle">Gestionamos integralmente la planificación territorial, la infraestructura y el patrimonio del campus universitario.</p>
+    </div>
+    <div class="func-grid">
+      <div class="func-card tilt-hover fade-in">
+        <div class="func-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+        <h3>Planificación Estratégica</h3>
+        <p>Planeación estratégica del uso eficiente del campus y de los espacios de propiedad de la Universidad.</p>
+      </div>
+      <div class="func-card fade-in fade-in-delay-1">
+        <div class="func-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div>
+        <h3>Desarrollo de Infraestructura</h3>
+        <p>Velar por el correcto funcionamiento de los proyectos que implican el desarrollo de la infraestructura universitaria.</p>
+      </div>
+      <div class="func-card fade-in fade-in-delay-2">
+        <div class="func-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
+        <h3>Gestión Territorial</h3>
+        <p>Coordinación con las unidades de gestión del campus para el desarrollo territorial integral.</p>
+      </div>
+      <div class="func-card fade-in fade-in-delay-1">
+        <div class="func-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <h3>Catastro e Información</h3>
+        <p>Encargados catastrales históricos de la Universidad, con más de 7.500 documentos bajo nuestra custodia.</p>
+      </div>
+      <div class="func-card fade-in fade-in-delay-2">
+        <div class="func-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <h3>Patrimonio Universitario</h3>
+        <p>Gestión y protección del patrimonio arquitectónico e histórico del campus, incluidos monumentos e ICH declarados.</p>
+      </div>
+      <div class="func-card fade-in fade-in-delay-3">
+        <div class="func-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Coordinación Institucional</h3>
+        <p>Apoyo directo a la autoridad superior y coordinación interinstitucional para el desarrollo del campus.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Patrimonio -->
+<section class="patrimonio-section" id="patrimonio">
+  <div class="patrimonio-grid">
+    <div class="patrimonio-text slide-left">
+      <div class="section-tag yellow">Patrimonio Universitario</div>
+      <h2>Un campus con historia desde <span>1850</span></h2>
+      <p>Somos custodios del patrimonio arquitectónico e histórico de la Universidad de Santiago de Chile. Nuestro campus alberga infraestructura de todas las épocas, desde mediados del siglo XIX hasta la actualidad.</p>
+      <p>Como exponentes del movimiento moderno en Chile, el campus UTE constituye un conjunto arquitectónico de valor patrimonial excepcional, reconocido por su significación en la historia de la arquitectura nacional.</p>
+      <div class="patrimonio-stats">
+        <div class="patrimonio-stat fade-in fade-in-delay-1"><div class="num orange">1</div><div class="label">Monumento Histórico Nacional — EAO de 1886</div></div>
+        <div class="patrimonio-stat fade-in fade-in-delay-2"><div class="num blue">5</div><div class="label">Inmuebles de Conservación Histórica declarados</div></div>
+        <div class="patrimonio-stat fade-in fade-in-delay-3"><div class="num yellow">7.500+</div><div class="label">Documentos catastrales históricos bajo custodia</div></div>
+        <div class="patrimonio-stat fade-in fade-in-delay-4"><div class="num purple">175+</div><div class="label">Años de historia construida en nuestro campus</div></div>
+      </div>
+    </div>
+    <div class="patrimonio-visual">
+      <div class="patrimonio-card scale-in" style="padding:0;overflow:hidden">
+        <img src="https://www.fotografiapatrimonial.cl/Images/Cache/aa1b27a3d0fa5cf74bf629bfe849a21e.jpg" alt="EAO 1886 - Patio-jardín de la Escuela de Artes y Oficios" style="width:100%;height:180px;object-fit:cover;display:block" loading="lazy">
+        <div style="padding:24px">
+          <h4>Escuela de Artes y Oficios — 1886</h4>
+          <p>Monumento Histórico Nacional. Edificio fundacional que marca el inicio de la educación técnica en Chile, pilar de la identidad institucional de la USACH.</p>
+        </div>
+      </div>
+      <div class="patrimonio-card scale-in" style="transition-delay:0.12s;padding:0;overflow:hidden">
+        <img src="https://archivopatrimonial.usach.cl/arquitectura/wp-content/uploads/2016/11/NN-005388-1200x779.jpg" alt="Casa Central UTE 1961 - Movimiento Moderno" style="width:100%;height:180px;object-fit:cover;display:block" loading="lazy">
+        <div style="padding:24px">
+          <h4>Unidad Universitaria de la UTE — 1962</h4>
+          <p>Conjunto arquitectónico exponente del movimiento moderno en Chile. El campus de la Universidad Técnica del Estado, diseñado como unidad universitaria integral, representa un hito en el patrimonio arquitectónico nacional.</p>
+        </div>
+      </div>
+      <div class="patrimonio-card scale-in" style="transition-delay:0.24s;padding:0;overflow:hidden">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Planetario-exterior--2014.jpg/1280px-Planetario-exterior--2014.jpg" alt="Planetario de Santiago 1985" style="width:100%;height:180px;object-fit:cover;display:block" loading="lazy">
+        <div style="padding:24px">
+          <h4>Planetario de Santiago — 1985</h4>
+          <p>Ícono de la divulgación científica en Chile y referente arquitectónico del campus. El Planetario es uno de los más importantes de Sudamérica y símbolo de la identidad USACH.</p>
+        </div>
+      </div>
+      <div class="patrimonio-card scale-in" style="transition-delay:0.36s;padding:0;overflow:hidden">
+        <img src="https://fae.usach.cl/fae/images/galerias/2021/254/image_001.jpg" alt="Edificio FAE USACH - Infraestructura contemporánea" style="width:100%;height:180px;object-fit:cover;display:block" loading="lazy">
+        <div style="padding:24px">
+          <h4>Infraestructura Multi-época</h4>
+          <p>Desde 1850 hasta hoy, nuestro campus reúne construcciones de todas las épocas, configurando un registro vivo de la evolución arquitectónica de Chile.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Catastro -->
+<section class="catastro-section" id="catastro">
+  <div class="catastro-inner">
+    <div class="section-center fade-in">
+      <div class="section-tag green">Gestión del Conocimiento</div>
+      <h2 class="section-title">Catastro Histórico e <span>Información Territorial</span></h2>
+      <p class="section-subtitle">Somos los encargados catastrales históricos de la Universidad, resguardando la memoria documental y territorial del campus.</p>
+    </div>
+    <div class="catastro-grid">
+      <div class="catastro-card fade-in">
+        <div class="catastro-icon" style="background:rgba(234,118,0,0.08);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="big-num" style="color:var(--primary)">7.500+</div>
+        <h3>Documentos Catastrales</h3>
+        <p>Archivo histórico bajo nuestra custodia que incluye planos, fichas, registros y documentación patrimonial de toda la infraestructura universitaria.</p>
+      </div>
+      <div class="catastro-card fade-in fade-in-delay-1">
+        <div class="catastro-icon" style="background:rgba(73,139,202,0.08);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+        </div>
+        <div class="big-num" style="color:var(--blue)">40 ha</div>
+        <h3>Territorio Catastrado</h3>
+        <p>Levantamiento completo del campus central, incluyendo clasificación territorial, edificaciones y espacios de uso universitario.</p>
+      </div>
+      <div class="catastro-card fade-in fade-in-delay-2">
+        <div class="catastro-icon" style="background:rgba(140,71,153,0.08);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="big-num" style="color:var(--purple)">175+</div>
+        <h3>Años de Historia</h3>
+        <p>Registros que abarcan desde 1850 hasta la actualidad, documentando cada etapa del desarrollo físico de la Universidad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIG-PLADET -->
+<section class="sig-section" id="sig">
+  <div class="sig-inner">
+    <div class="sig-badge fade-in">Próximamente</div>
+    <h2 class="fade-in fade-in-delay-1">Sistema de Información Geográfica <span>SIG-PLADET</span></h2>
+    <p class="fade-in fade-in-delay-2">Estamos desarrollando una plataforma integral de gestión territorial que permitirá visualizar, analizar y administrar toda la información geoespacial del campus universitario en tiempo real.</p>
+    <div class="sig-features">
+      <div class="sig-feature fade-in fade-in-delay-1">
+        <div class="sig-feature-icon" style="background:rgba(73,139,202,0.12)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+        </div>
+        <h4>Cartografía Digital</h4>
+        <p>Mapas interactivos con capas de información territorial, edificaciones y redes.</p>
+      </div>
+      <div class="sig-feature fade-in fade-in-delay-2">
+        <div class="sig-feature-icon" style="background:rgba(140,71,153,0.12)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h4>Análisis Espacial</h4>
+        <p>Herramientas de análisis para la toma de decisiones basadas en datos geoespaciales.</p>
+      </div>
+      <div class="sig-feature fade-in fade-in-delay-3">
+        <div class="sig-feature-icon" style="background:rgba(234,170,0,0.12)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <h4>Gestión Documental</h4>
+        <p>Integración con el catastro histórico para acceso centralizado a toda la documentación territorial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Equipo -->
+<section class="section" id="equipo" style="background:var(--gray-50)">
+  <div class="section-inner">
+    <div class="section-center fade-in">
+      <div class="section-tag orange">Equipo</div>
+      <h2 class="section-title">Nuestro <span>Equipo</span></h2>
+    </div>
+    <div class="equipo-grid">
+      <div class="equipo-card fade-in">
+        <div class="equipo-banner-sm" style="background:linear-gradient(135deg, var(--primary), var(--primary-dark))">
+          <div class="equipo-avatar-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        </div>
+        <div class="equipo-info-sm">
+          <h3>Sebastián Vizcarra B.</h3>
+          <div class="role">Director</div>
+        </div>
+      </div>
+      <div class="equipo-card fade-in fade-in-delay-1">
+        <div class="equipo-banner-sm" style="background:linear-gradient(135deg, var(--blue), #3a7ab8)">
+          <div class="equipo-avatar-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        </div>
+        <div class="equipo-info-sm">
+          <h3>&mdash;</h3>
+          <div class="role">Jefe de Unidad de Obras Menores</div>
+        </div>
+      </div>
+      <div class="equipo-card fade-in fade-in-delay-2">
+        <div class="equipo-banner-sm" style="background:linear-gradient(135deg, var(--purple), #7a3d87)">
+          <div class="equipo-avatar-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        </div>
+        <div class="equipo-info-sm">
+          <h3>&mdash;</h3>
+          <div class="role">Jefe de Unidad de Grandes Obras</div>
+        </div>
+      </div>
+      <div class="equipo-card fade-in fade-in-delay-3">
+        <div class="equipo-banner-sm" style="background:linear-gradient(135deg, var(--yellow), #d49800)">
+          <div class="equipo-avatar-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        </div>
+        <div class="equipo-info-sm">
+          <h3>&mdash;</h3>
+          <div class="role">Jefe de Unidad de Planificación Territorial</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contacto -->
+<section class="section" id="contacto" style="background:white">
+  <div class="section-inner">
+    <div class="contacto-box fade-in">
+      <div>
+        <div class="section-tag" style="color:var(--primary)">Contacto</div>
+        <h2>¿Tienes consultas o necesitas coordinación?</h2>
+        <p class="desc">Estamos disponibles para atender tus requerimientos relacionados con planificación territorial, infraestructura y patrimonio del campus.</p>
+      </div>
+      <div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="contact-label">Correo</div><div class="contact-value">pladet@usach.cl</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="contact-label">Dirección</div><div class="contact-value">Av. Víctor Jara 3555, Estación Central, Santiago</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg></div>
+          <div><div class="contact-label">Dependencia</div><div class="contact-value">Prorrectoría — Universidad de Santiago de Chile</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-title">Dirección de Planificación y Desarrollo Territorial</div>
+      <div class="footer-sub">Prorrectoría | Universidad de Santiago de Chile</div>
+    </div>
+    <div class="footer-sub">© 2026 USACH. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<script>
+  // Scroll-triggered animations (Apple style)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in, .scale-in, .slide-left, .slide-right, .rotate-in, .blur-in').forEach(el => observer.observe(el));
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // ============ HERO IMAGE DRAG & DROP ============
+  const heroBg = document.getElementById('heroBg');
+  // Allow drag-and-drop of an image onto the hero
+  const hero = document.querySelector('.hero');
+  hero.addEventListener('dragover', (e) => { e.preventDefault(); hero.style.outline = '3px dashed var(--primary)'; });
+  hero.addEventListener('dragleave', () => { hero.style.outline = 'none'; });
+  hero.addEventListener('drop', (e) => {
+    e.preventDefault(); hero.style.outline = 'none';
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (ev) => { heroBg.style.backgroundImage = `url(${ev.target.result})`; };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // ============ PARALLAX SCROLL EFFECT ============
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        // Hero parallax: content moves slower than scroll
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent && scrollY < window.innerHeight) {
+          heroContent.style.transform = `translateY(${scrollY * 0.3}px)`;
+          heroContent.style.opacity = 1 - (scrollY / (window.innerHeight * 0.8));
+        }
+        // Particles parallax at different rates
+        document.querySelectorAll('.hero-particle').forEach((p, i) => {
+          const rate = 0.05 + (i * 0.03);
+          p.style.transform = `translateY(${scrollY * rate}px)`;
+        });
+        // Header scroll effect
+        const header = document.getElementById('header');
+        if (scrollY > 10) {
+          header.classList.add('scrolled');
+          header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+        } else {
+          header.classList.remove('scrolled');
+          header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // ============ COUNTER ANIMATION ============
+  function animateCounter(el) {
+    const text = el.textContent.trim();
+    const match = text.match(/^([\d.]+)(\+?)(.*)$/);
+    if (!match) return;
+    const target = parseFloat(match[1].replace('.', ''));
+    const hasDot = match[1].includes('.');
+    const plus = match[2];
+    const suffix = match[3];
+    const duration = 2000;
+    const startTime = performance.now();
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      let current = Math.floor(target * eased);
+      if (hasDot) {
+        el.textContent = current.toLocaleString('es-CL') + plus + suffix;
+      } else {
+        el.textContent = current + plus + suffix;
+      }
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  // Observe stat numbers for counter animation
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.counted) {
+        entry.target.dataset.counted = 'true';
+        entry.target.style.animation = 'slideInNumber 0.6s ease forwards';
+        animateCounter(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-number').forEach(el => counterObserver.observe(el));
+
+  // ============ SMOOTH MOUSE TILT (func-cards) ============
+  document.querySelectorAll('.tilt-hover').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -4;
+      const rotateY = ((x - centerX) / centerX) * 4;
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)';
+    });
+  });
+
+  // ============ TYPING EFFECT FOR HERO BADGE ============
+  const badge = document.querySelector('.hero-badge');
+  if (badge) {
+    const originalText = badge.textContent;
+    badge.textContent = '';
+    let i = 0;
+    function typeChar() {
+      if (i < originalText.length) {
+        badge.textContent += originalText[i];
+        i++;
+        setTimeout(typeChar, 30 + Math.random() * 20);
+      }
+    }
+    setTimeout(typeChar, 600);
+  }
+
+  // ============ SMOOTH SECTION REVEAL ON SCROLL ============
+  const sections = document.querySelectorAll('.section, .patrimonio-section, .sig-section');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.05 });
+  sections.forEach(s => {
+    s.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(30px)';
+    sectionObserver.observe(s);
+  });
+
+  // ============ MAGNETIC BUTTON EFFECT ============
+  document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) scale(1.04)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0, 0) scale(1)';
+    });
+  });
+</script>
+
+</body>
+</html>
